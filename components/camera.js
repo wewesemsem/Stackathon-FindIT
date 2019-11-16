@@ -5,7 +5,11 @@ import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 class Camera extends React.Component {
-  state = { cameraPermission: null, scanned: false };
+  constructor(props) {
+    super(props);
+    this.state = { cameraPermission: null, scanned: false };
+    this.handleBarCodeScanned = this.handleBarCodeScanned.bind(this);
+  }
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);

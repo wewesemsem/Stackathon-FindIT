@@ -1,7 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { BannedItems, Camera, Results } from './components/';
+import { BannedList, Camera, Results } from './components/';
 import store from './store';
 import { Provider } from 'react-redux';
 
@@ -9,7 +9,7 @@ const AppNavigator = createStackNavigator(
   //configuration object
   {
     Banned: {
-      screen: BannedItems,
+      screen: BannedList,
     },
     BarScan: {
       screen: Camera,
