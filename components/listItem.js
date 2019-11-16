@@ -7,16 +7,12 @@ function listItem(props) {
   return props.bannedItems.map(item => {
     let banned = false;
     if (props.selectedItems.includes(item)) {
-      console.log('found a banned item', item);
       banned = true;
     }
     return (
-      <View style={styles.container} key={item}>
-        <Button  
-          title={item}
-          onPress={() => props.handlePress(item)}
-        />
-        {banned && <Text>Banned </Text>}
+      <View style={styles.listItem} key={item}>
+        <Button title={item} onPress={() => props.handlePress(item)} />
+        {banned && <Text>Banned!</Text>}
       </View>
     );
   });

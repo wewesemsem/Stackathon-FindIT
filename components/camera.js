@@ -3,6 +3,8 @@ import { StyleSheet, Button, Text, View } from 'react-native';
 import styles from './style';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { connect } from 'react-redux';
+import { addResults } from '../store/results';
 
 class Camera extends React.Component {
   constructor(props) {
@@ -17,11 +19,10 @@ class Camera extends React.Component {
   }
 
   handleBarCodeScanned = async ({ type, data }) => {
-    this.setState({ scanned: true });
+    // this.setState({ scanned: true });
     console.log('TYPE', type, 'DATA', data);
-    // const res = await axios(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
-    // console.log(res)
-    alert(`Bar code with type ${type} and data ${data} has been scanned :)`);
+    this.props.getResults(data, this.props.bannedItems);
+    this.props.navigation.navigate('Results');
   };
 
   render() {
@@ -35,9 +36,7 @@ class Camera extends React.Component {
       );
     }
     return (
-      <View
-        style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}
-      >
+      <View style={styles.barCodeScanner}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
@@ -47,4 +46,18 @@ class Camera extends React.Component {
   }
 }
 
-export default Camera;
+const mapStateToProps = state => {
+  console.log('mapping state to camera', state);
+  return {
+    bannedItems: state.bannedItems,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getResults: (barCode, selectedItems) =>
+      dispatch(addResults(barCode, selectedItems)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);

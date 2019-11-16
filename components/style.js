@@ -7,6 +7,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  barCodeScanner: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  listItem: {
+    flexDirection: 'row',
+  },
 });
 
 export default styles;

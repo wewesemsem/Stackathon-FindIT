@@ -2,21 +2,31 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import styles from './style';
 import ListItem from './listItem';
+import { addBannedItems } from '../store/bannedItems';
+import { connect } from 'react-redux';
 
 class bannedList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bannedItems: ['Peanuts', 'Dairy', 'Gelatin'],
+      bannedItems: ['Peanuts', 'Milk', 'Gelatin'],
       selectedItems: [],
       customItems: [],
     };
-    this.handlePress = this.handlePress.bind(this);
+    this.handlePressScan = this.handlePressScan.bind(this);
+    this.handlePressItem = this.handlePressItem.bind(this);
   }
+
   componentDidMount() {
     console.log('bannedItems component mounted', this.state.selectedItems);
   }
-  handlePress(selectedItemName) {
+
+  handlePressScan() {
+    this.props.addBannedItems(this.state.selectedItems);
+    this.props.navigation.navigate('BarScan');
+  }
+
+  handlePressItem(selectedItemName) {
     console.log('button pressed', selectedItemName);
     let selectedItems = [...this.state.selectedItems];
     //if its already selected, deselect
@@ -31,6 +41,7 @@ class bannedList extends React.Component {
       });
     }
   }
+
   render() {
     console.log('rendering banned', this.state.selectedItems);
     const { bannedItems, selectedItems } = this.state;
@@ -38,17 +49,20 @@ class bannedList extends React.Component {
       <View style={styles.container}>
         <Text>Select Banned Items: </Text>
         <ListItem
-          handlePress={this.handlePress}
+          handlePress={this.handlePressItem}
           bannedItems={bannedItems}
           selectedItems={selectedItems}
         />
-        <Button
-          title="Scan Item"
-          onPress={() => this.props.navigation.navigate('BarScan')}
-        />
+        <Button title="Scan Item" onPress={this.handlePressScan} />
       </View>
     );
   }
 }
 
-export default bannedList;
+const mapDispatchToProps = dispatch => {
+  return {
+    addBannedItems: bannedItems => dispatch(addBannedItems(bannedItems)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(bannedList);
