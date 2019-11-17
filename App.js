@@ -21,6 +21,7 @@ const AppNavigator = createStackNavigator(
   //options object
   {
     initialRouteName: 'Banned',
+    headerMode: 'none',
   }
 );
 

@@ -9,7 +9,14 @@ class bannedList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bannedItems: ['Peanuts', 'Milk', 'Gelatin'],
+      bannedItems: [
+        'Peanuts',
+        'Dairy',
+        'Gelatin',
+        'Meat',
+        'Flouride',
+        'Known Carcinogens',
+      ],
       selectedItems: [],
       customItems: [],
     };
@@ -47,13 +54,21 @@ class bannedList extends React.Component {
     const { bannedItems, selectedItems } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Select Banned Items: </Text>
-        <ListItem
-          handlePress={this.handlePressItem}
-          bannedItems={bannedItems}
-          selectedItems={selectedItems}
-        />
-        <Button title="Scan Item" onPress={this.handlePressScan} />
+        <Text style={styles.text}>Tap an ingredient to ban it!</Text>
+        <View style={styles.list}>
+          <ListItem
+            handlePress={this.handlePressItem}
+            bannedItems={bannedItems}
+            selectedItems={selectedItems}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            color="#3E505B"
+            title="Scan My Item"
+            onPress={this.handlePressScan}
+          />
+        </View>
       </View>
     );
   }

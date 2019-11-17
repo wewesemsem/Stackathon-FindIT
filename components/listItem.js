@@ -11,8 +11,12 @@ function listItem(props) {
     }
     return (
       <View style={styles.listItem} key={item}>
-        <Button title={item} onPress={() => props.handlePress(item)} />
-        {banned && <Text>Banned!</Text>}
+        <Button
+          color="#DDA448"
+          title={item}
+          onPress={() => props.handlePress(item)}
+        />
+        {banned && <Text>❌</Text>}
       </View>
     );
   });

@@ -27,7 +27,12 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
     const { data } = await axios(
       `https://world.openfoodfacts.org/api/v0/product/${barCode}.json`
     );
-    if (!data.product.ingredients || !data.product.ingredients.length) {
+    console.log('---------------------->', data);
+    if (
+      !data.product ||
+      !data.product.ingredients ||
+      !data.product.ingredients.length
+    ) {
       bannedItemsFound.push('Sorry, ingredients not found');
     } else {
       const ingredients = data.product.ingredients;
