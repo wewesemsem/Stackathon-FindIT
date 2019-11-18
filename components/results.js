@@ -2,16 +2,26 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import styles from './style';
 import { connect } from 'react-redux';
+import ResultItem from './resultListItem';
+import { clearResultsAction } from '../store/results';
 
-//should make results item its own component
 class Results extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleScanAgain = this.handleScanAgain.bind(this);
+  }
+
+  handleScanAgain() {
+    this.props.clearResults();
+    this.props.navigation.navigate('BarScan');
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.resultText}>This item contains: </Text>
         <View style={styles.list}>
-          {this.props.results.map(foundItem => {
-            return <Text> {foundItem} </Text>;
-          })}
+          <ResultItem results={this.props.results} />
         </View>
         <View style={styles.navigate}>
           <View style={styles.button}>
@@ -26,7 +36,7 @@ class Results extends React.Component {
             <Button
               color="#3E505B"
               title="Scan Another Item"
-              onPress={() => this.props.navigation.navigate('BarScan')}
+              onPress={this.handleScanAgain}
             />
           </View>
         </View>
@@ -42,4 +52,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(Results);
+const mapDispatchToProps = dispatch => {
+  return {
+    clearResults: () => dispatch(clearResultsAction()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results);

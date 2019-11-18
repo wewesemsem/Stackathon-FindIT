@@ -4,6 +4,7 @@ import styles from './style';
 import ListItem from './listItem';
 import { addBannedItems } from '../store/bannedItems';
 import { connect } from 'react-redux';
+import CustomItem from './customItem';
 
 class bannedList extends React.Component {
   constructor(props) {
@@ -22,10 +23,18 @@ class bannedList extends React.Component {
     };
     this.handlePressScan = this.handlePressScan.bind(this);
     this.handlePressItem = this.handlePressItem.bind(this);
+    this.handlePressAdd = this.handlePressAdd.bind(this);
   }
 
   componentDidMount() {
     console.log('bannedItems component mounted', this.state.selectedItems);
+  }
+
+  handlePressAdd(item) {
+    this.setState({
+      bannedItems: [...this.state.bannedItems, item],
+      selectedItems: [...this.state.selectedItems, item],
+    });
   }
 
   handlePressScan() {
@@ -62,6 +71,11 @@ class bannedList extends React.Component {
             selectedItems={selectedItems}
           />
         </View>
+        <CustomItem
+          bannedItems={bannedItems}
+          selectedItems={selectedItems}
+          handlePress={this.handlePressAdd}
+        />
         <View style={styles.button}>
           <Button
             color="#3E505B"

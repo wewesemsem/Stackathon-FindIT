@@ -3,6 +3,7 @@ import axios from 'axios';
  * ACTION TYPES
  */
 const ADD_RESULTS = 'ADD_RESULTS';
+const CLEAR_RESULTS = 'CLEAR_RESULTS';
 
 /**
  * INITIAL STATE
@@ -16,6 +17,8 @@ const addResultsAction = bannedItemsFound => ({
   type: ADD_RESULTS,
   bannedItemsFound,
 });
+
+export const clearResultsAction = () => ({ type: CLEAR_RESULTS });
 
 /**
  * THUNK CREATORS
@@ -33,7 +36,7 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
       !data.product.ingredients ||
       !data.product.ingredients.length
     ) {
-      bannedItemsFound.push('Sorry, ingredients not found');
+      bannedItemsFound.push('Sorry, product was not found.');
     } else {
       const ingredients = data.product.ingredients;
       //check if item ingredients includes banned items
@@ -42,12 +45,14 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
           const currentIngredient = ingredients[i].text.toLowerCase();
           const bannedItem = selectedItems[j].toLowerCase();
           if (currentIngredient.includes(bannedItem)) {
-            bannedItemsFound.push(bannedItem);
+            if (!bannedItemsFound.includes(bannedItem))
+              bannedItemsFound.push(bannedItem);
             //  console.log("--------------> Found a banned item", ingredients[i].text, selectedItems[j])
           }
         }
       }
     }
+    if (!bannedItemsFound.length) bannedItemsFound.push('No banned items!');
     dispatch(addResultsAction(bannedItemsFound));
   } catch (error) {
     console.log('Results not found');
@@ -62,6 +67,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_RESULTS:
       return action.bannedItemsFound;
+    case CLEAR_RESULTS:
+      return [];
     default:
       return state;
   }

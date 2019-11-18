@@ -35,6 +35,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
   },
+  resultText: {
+    color: '#fff',
+    fontSize: 25,
+  },
+  input: {
+    backgroundColor: '#fff',
+    padding: 8,
+    opacity: 7,
+  },
 });
 
 export default styles;
