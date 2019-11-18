@@ -51,6 +51,14 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
           }
         }
       }
+      //check for gluten
+      if (data.product.allergens_tags) {
+        data.product.allergens_tags.forEach(allergen => {
+          if (allergen.includes('gluten')) {
+            bannedItemsFound.push('Gluten');
+          }
+        });
+      }
     }
     if (!bannedItemsFound.length) bannedItemsFound.push('No banned items!');
     dispatch(addResultsAction(bannedItemsFound));

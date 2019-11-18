@@ -1,3 +1,10 @@
+import {
+  dairyList,
+  meatList,
+  shellFishList,
+  treeNutsList,
+  carcinogensList,
+} from './bannedItemsArrays';
 /**
  * ACTION TYPES
  */
@@ -11,10 +18,28 @@ const INITIAL_STATE = [];
 /**
  * ACTION CREATORS
  */
-export const addBannedItems = bannedItems => ({
-  type: ADD_BANNED_ITEMS,
-  bannedItems,
-});
+export const addBannedItems = bannedItems => {
+  if (bannedItems.includes('Dairy')) {
+    bannedItems = bannedItems.concat(dairyList);
+  }
+  if (bannedItems.includes('Meat')) {
+    bannedItems = bannedItems.concat(meatList);
+  }
+  if (bannedItems.includes('Shellfish')) {
+    bannedItems = bannedItems.concat(shellFishList);
+  }
+  if (bannedItems.includes('Tree Nuts')) {
+    bannedItems = bannedItems.concat(treeNutsList);
+  }
+  if (bannedItems.includes('Known Carcinogens')) {
+    bannedItems = bannedItems.concat(carcinogensList);
+  }
+
+  return {
+    type: ADD_BANNED_ITEMS,
+    bannedItems,
+  };
+};
 
 /**
  * REDUCER

@@ -11,11 +11,14 @@ class bannedList extends React.Component {
     super(props);
     this.state = {
       bannedItems: [
-        'Peanuts',
+        'Tree Nuts',
         'Dairy',
+        'Meat (excluding seafood)',
+        'Shellfish',
+        'Gluten',
         'Gelatin',
-        'Meat',
-        'Flouride',
+        'Peanuts',
+        'Alcohol',
         'Known Carcinogens',
       ],
       selectedItems: [],
