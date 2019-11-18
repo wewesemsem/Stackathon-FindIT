@@ -44,6 +44,7 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
         for (let j = 0; j < selectedItems.length; j++) {
           const currentIngredient = ingredients[i].text.toLowerCase();
           const bannedItem = selectedItems[j].toLowerCase();
+          console.log("CURRENT", currentIngredient)
           if (currentIngredient.includes(bannedItem)) {
             if (!bannedItemsFound.includes(bannedItem))
               bannedItemsFound.push(bannedItem);
@@ -52,7 +53,7 @@ export const addResults = (barCode, selectedItems) => async dispatch => {
         }
       }
       //check for gluten
-      if (data.product.allergens_tags) {
+      if (selectedItems.includes('Gluten') && data.product.allergens_tags) {
         data.product.allergens_tags.forEach(allergen => {
           if (allergen.includes('gluten')) {
             bannedItemsFound.push('Gluten');

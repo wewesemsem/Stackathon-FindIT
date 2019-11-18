@@ -20,6 +20,7 @@ export const meatList = [
   'steak',
   'duck',
   'bacon',
+  'bison',
 ];
 
 export const shellFishList = [

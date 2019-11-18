@@ -22,7 +22,7 @@ export const addBannedItems = bannedItems => {
   if (bannedItems.includes('Dairy')) {
     bannedItems = bannedItems.concat(dairyList);
   }
-  if (bannedItems.includes('Meat')) {
+  if (bannedItems.includes('Meat (excluding seafood)')) {
     bannedItems = bannedItems.concat(meatList);
   }
   if (bannedItems.includes('Shellfish')) {
