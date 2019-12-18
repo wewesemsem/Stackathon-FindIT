@@ -11,15 +11,15 @@ class bannedList extends React.Component {
     super(props);
     this.state = {
       bannedItems: [
-        'Tree Nuts',
-        'Dairy',
-        'Meat (excluding seafood)',
-        'Shellfish',
-        'Gluten',
-        'Gelatin',
-        'Peanuts',
-        'Alcohol',
-        'Known Carcinogens',
+        'tree nuts',
+        'dairy',
+        'meat (excluding seafood)',
+        'shellfish',
+        'gluten',
+        'gelatin',
+        'peanuts',
+        'alcohol',
+        'known carcinogens',
       ],
       selectedItems: [],
       customItems: [],
@@ -27,10 +27,6 @@ class bannedList extends React.Component {
     this.handlePressScan = this.handlePressScan.bind(this);
     this.handlePressItem = this.handlePressItem.bind(this);
     this.handlePressAdd = this.handlePressAdd.bind(this);
-  }
-
-  componentDidMount() {
-    console.log('bannedItems component mounted', this.state.selectedItems);
   }
 
   handlePressAdd(item) {
@@ -46,7 +42,6 @@ class bannedList extends React.Component {
   }
 
   handlePressItem(selectedItemName) {
-    console.log('button pressed', selectedItemName);
     let selectedItems = [...this.state.selectedItems];
     //if its already selected, deselect
     if (selectedItems.includes(selectedItemName)) {
@@ -62,7 +57,6 @@ class bannedList extends React.Component {
   }
 
   render() {
-    console.log('rendering banned', this.state.selectedItems);
     const { bannedItems, selectedItems } = this.state;
     return (
       <View style={styles.container}>
@@ -97,4 +91,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(bannedList);
+export default connect(
+  null,
+  mapDispatchToProps
+)(bannedList);

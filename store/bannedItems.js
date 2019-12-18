@@ -19,19 +19,19 @@ const INITIAL_STATE = [];
  * ACTION CREATORS
  */
 export const addBannedItems = bannedItems => {
-  if (bannedItems.includes('Dairy')) {
+  if (bannedItems.includes('dairy')) {
     bannedItems = bannedItems.concat(dairyList);
   }
-  if (bannedItems.includes('Meat (excluding seafood)')) {
+  if (bannedItems.includes('meat (excluding seafood)')) {
     bannedItems = bannedItems.concat(meatList);
   }
-  if (bannedItems.includes('Shellfish')) {
+  if (bannedItems.includes('shellfish')) {
     bannedItems = bannedItems.concat(shellFishList);
   }
-  if (bannedItems.includes('Tree Nuts')) {
+  if (bannedItems.includes('tree nuts')) {
     bannedItems = bannedItems.concat(treeNutsList);
   }
-  if (bannedItems.includes('Known Carcinogens')) {
+  if (bannedItems.includes('known carcinogens')) {
     bannedItems = bannedItems.concat(carcinogensList);
   }
 

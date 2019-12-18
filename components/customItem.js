@@ -9,11 +9,14 @@ export default class CustomItem extends React.Component {
     this.handlePress = this.handlePress.bind(this);
   }
   handlePress() {
-    const newItem = this.state.customItem.trim();
-    if (newItem === '' || newItem === ' ') alert('Field cannot be empty!');
-    else if (this.props.bannedItems.includes(newItem))
+    const newItem = this.state.customItem.trim().toLowerCase();
+    if (newItem === '' || newItem === ' ') {
+      alert('This field cannot be empty.');
+      this.setState({ customItem: '' });
+    } else if (this.props.bannedItems.includes(newItem)) {
       alert('This ingredient is already listed.');
-    else {
+      this.setState({ customItem: '' });
+    } else {
       this.setState({ customItem: '' });
       this.props.handlePress(newItem);
     }

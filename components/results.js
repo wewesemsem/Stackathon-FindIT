@@ -46,7 +46,6 @@ class Results extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('mapping state to results', state);
   return {
     results: state.results,
   };
@@ -58,4 +57,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Results);

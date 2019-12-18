@@ -3,7 +3,6 @@ import { Button, View, Text } from 'react-native';
 import styles from './style';
 
 function listItem(props) {
-  console.log('rendering itemsList', props.bannedItems);
   return props.bannedItems.map(item => {
     let banned = false;
     if (props.selectedItems.includes(item)) {

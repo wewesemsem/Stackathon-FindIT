@@ -56,4 +56,4 @@ export const treeNutsList = [
   'walnuts',
 ];
 
-export const carcinogensList = ['acetaldehyde', 'Benzene', 'Betel quid'];
+export const carcinogensList = ['acetaldehyde', 'benzene', 'betel quid'];

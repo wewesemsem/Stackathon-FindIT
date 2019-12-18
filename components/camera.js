@@ -4,7 +4,7 @@ import styles from './style';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { connect } from 'react-redux';
-import { addResults } from '../store/results';
+import { getResults } from '../store/results';
 
 class Camera extends React.Component {
   constructor(props) {
@@ -19,8 +19,6 @@ class Camera extends React.Component {
   }
 
   handleBarCodeScanned = async ({ type, data }) => {
-    // this.setState({ scanned: true });
-    console.log('TYPE', type, 'DATA', data);
     this.props.getResults(data, this.props.bannedItems);
     this.props.navigation.navigate('Results');
   };
@@ -47,7 +45,6 @@ class Camera extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('mapping state to camera', state);
   return {
     bannedItems: state.bannedItems,
   };
@@ -56,8 +53,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getResults: (barCode, selectedItems) =>
-      dispatch(addResults(barCode, selectedItems)),
+      dispatch(getResults(barCode, selectedItems)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Camera);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Camera);
