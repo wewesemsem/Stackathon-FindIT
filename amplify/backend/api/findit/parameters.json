@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "findit",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authfinditea382d49",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
