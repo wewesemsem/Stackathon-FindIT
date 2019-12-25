@@ -4,6 +4,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { BannedList, Camera, Results } from './components/';
 import store from './store';
 import { Provider } from 'react-redux';
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react-native';
+
+Amplify.configure(config);
 
 const AppNavigator = createStackNavigator(
   //configuration object
@@ -27,7 +32,7 @@ const AppNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
@@ -36,3 +41,4 @@ export default class App extends React.Component {
     );
   }
 }
+export default withAuthenticator(App, true);
