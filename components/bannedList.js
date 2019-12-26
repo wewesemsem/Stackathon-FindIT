@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import styles from './style';
 import ListItem from './listItem';
-import { addBannedItems } from '../store/bannedItems';
+import { addBannedItem, getBannedItems } from '../store/bannedItems';
 import { connect } from 'react-redux';
 import CustomItem from './customItem';
 
@@ -29,15 +29,21 @@ class bannedList extends React.Component {
     this.handlePressAdd = this.handlePressAdd.bind(this);
   }
 
+  componentDidMount() {
+    //get banned items for current user
+    this.props.getBannedItems();
+  }
+
   handlePressAdd(item) {
-    this.setState({
-      bannedItems: [...this.state.bannedItems, item],
-      selectedItems: [...this.state.selectedItems, item],
-    });
+    // this.setState({
+    //   bannedItems: [...this.state.bannedItems, item],
+    //   selectedItems: [...this.state.selectedItems, item],
+    // });
+    this.props.addBannedItem(item);
   }
 
   handlePressScan() {
-    this.props.addBannedItems(this.state.selectedItems);
+    // this.props.addBannedItems(this.state.selectedItems);
     this.props.navigation.navigate('BarScan');
   }
 
@@ -55,19 +61,21 @@ class bannedList extends React.Component {
       });
     }
   }
-
+  //render a view of drop down --> on click selected drop down, add to banned items
+  //render a list of banned items
   render() {
     const { bannedItems, selectedItems } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Tap an ingredient to ban it!</Text>
+        <Text style={styles.text}>Select a category to ban:</Text>
         <View style={styles.list}>
           <ListItem
             handlePress={this.handlePressItem}
-            bannedItems={bannedItems}
+            bannedItems={this.props.userBannedItems}
             selectedItems={selectedItems}
           />
         </View>
+        <Text style={styles.text}>Ban a custom ingredient:</Text>
         <CustomItem
           bannedItems={bannedItems}
           selectedItems={selectedItems}
@@ -87,11 +95,15 @@ class bannedList extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addBannedItems: bannedItems => dispatch(addBannedItems(bannedItems)),
+    getBannedItems: () => dispatch(getBannedItems()),
+    addBannedItem: bannedItem => dispatch(addBannedItem(bannedItem)),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(bannedList);
+const mapStateToProps = state => {
+  return {
+    userBannedItems: state.bannedItems,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(bannedList);

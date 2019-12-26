@@ -1,0 +1,5 @@
+type bannedItem @model {
+  id: ID!
+  name: String!
+  userName: String
+}

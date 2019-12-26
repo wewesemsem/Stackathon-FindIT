@@ -9,11 +9,11 @@ function listItem(props) {
       banned = true;
     }
     return (
-      <View style={styles.listItem} key={item}>
+      <View style={styles.listItem} key={item.id}>
         <Button
           color="#DDA448"
-          title={item}
-          onPress={() => props.handlePress(item)}
+          title={item.name}
+          onPress={() => props.handlePress(item.name)}
         />
         {banned && <Text>❌</Text>}
       </View>

@@ -1,0 +1,20 @@
+{
+    "test": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-findit-test-145946-authRole",
+            "UnauthRoleArn": "arn:aws:iam::928945730412:role/amplify-findit-test-145946-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::928945730412:role/amplify-findit-test-145946-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-findit-test-145946-deployment",
+            "UnauthRoleName": "amplify-findit-test-145946-unauthRole",
+            "StackName": "amplify-findit-test-145946",
+            "StackId": "arn:aws:cloudformation:us-east-1:928945730412:stack/amplify-findit-test-145946/1baa20b0-2751-11ea-8fd2-12c5c4f78283",
+            "AmplifyAppId": "d2a7shxtm9bwqf"
+        },
+        "categories": {
+            "auth": {
+                "finditea382d49": {}
+            }
+        }
+    }
+}
