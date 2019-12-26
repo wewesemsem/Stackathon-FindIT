@@ -1,36 +1,36 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = `mutation CreateTodo(
-  $input: CreateTodoInput!
-  $condition: ModelTodoConditionInput
+export const createBannedItem = `mutation CreateBannedItem(
+  $input: CreateBannedItemInput!
+  $condition: ModelbannedItemConditionInput
 ) {
-  createTodo(input: $input, condition: $condition) {
+  createBannedItem(input: $input, condition: $condition) {
     id
     name
-    description
+    userName
   }
 }
 `;
-export const updateTodo = `mutation UpdateTodo(
-  $input: UpdateTodoInput!
-  $condition: ModelTodoConditionInput
+export const updateBannedItem = `mutation UpdateBannedItem(
+  $input: UpdateBannedItemInput!
+  $condition: ModelbannedItemConditionInput
 ) {
-  updateTodo(input: $input, condition: $condition) {
+  updateBannedItem(input: $input, condition: $condition) {
     id
     name
-    description
+    userName
   }
 }
 `;
-export const deleteTodo = `mutation DeleteTodo(
-  $input: DeleteTodoInput!
-  $condition: ModelTodoConditionInput
+export const deleteBannedItem = `mutation DeleteBannedItem(
+  $input: DeleteBannedItemInput!
+  $condition: ModelbannedItemConditionInput
 ) {
-  deleteTodo(input: $input, condition: $condition) {
+  deleteBannedItem(input: $input, condition: $condition) {
     id
     name
-    description
+    userName
   }
 }
 `;

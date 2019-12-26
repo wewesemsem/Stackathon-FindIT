@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import styles from './style';
 import ListItem from './listItem';
-import { addBannedItem } from '../store/bannedItems';
+import { addBannedItem, getBannedItems } from '../store/bannedItems';
 import { connect } from 'react-redux';
 import CustomItem from './customItem';
 
@@ -31,6 +31,7 @@ class bannedList extends React.Component {
 
   componentDidMount() {
     //get banned items for current user
+    this.props.getBannedItems();
   }
 
   handlePressAdd(item) {
@@ -38,7 +39,7 @@ class bannedList extends React.Component {
     //   bannedItems: [...this.state.bannedItems, item],
     //   selectedItems: [...this.state.selectedItems, item],
     // });
-    this.props.addBannedItem(item)
+    this.props.addBannedItem(item);
   }
 
   handlePressScan() {
@@ -70,7 +71,7 @@ class bannedList extends React.Component {
         <View style={styles.list}>
           <ListItem
             handlePress={this.handlePressItem}
-            bannedItems={bannedItems}
+            bannedItems={this.props.userBannedItems}
             selectedItems={selectedItems}
           />
         </View>
@@ -94,8 +95,15 @@ class bannedList extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getBannedItems: () => dispatch(getBannedItems()),
     addBannedItem: bannedItem => dispatch(addBannedItem(bannedItem)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(bannedList);
+const mapStateToProps = state => {
+  return {
+    userBannedItems: state.bannedItems,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(bannedList);

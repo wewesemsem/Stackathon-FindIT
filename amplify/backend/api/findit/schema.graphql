@@ -1,5 +1,5 @@
-type Todo @model {
+type bannedItem @model {
   id: ID!
   name: String!
-  description: String
+  userName: String
 }

@@ -1,27 +1,27 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = `subscription OnCreateTodo {
-  onCreateTodo {
+export const onCreateBannedItem = `subscription OnCreateBannedItem {
+  onCreateBannedItem {
     id
     name
-    description
+    userName
   }
 }
 `;
-export const onUpdateTodo = `subscription OnUpdateTodo {
-  onUpdateTodo {
+export const onUpdateBannedItem = `subscription OnUpdateBannedItem {
+  onUpdateBannedItem {
     id
     name
-    description
+    userName
   }
 }
 `;
-export const onDeleteTodo = `subscription OnDeleteTodo {
-  onDeleteTodo {
+export const onDeleteBannedItem = `subscription OnDeleteBannedItem {
+  onDeleteBannedItem {
     id
     name
-    description
+    userName
   }
 }
 `;

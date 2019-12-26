@@ -1,10 +1,6 @@
-import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
-import { createToDo, createTodo } from '../src/graphql/mutations';
-/**
- * ACTION TYPES
- */
-const GET_BANNED_ITEMS = 'GET_BANNED_ITEMS';
-const ADD_BANNED_ITEM = 'ADD_BANNED_ITEM';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { createBannedItem } from '../src/graphql/mutations';
+import { listBannedItemsByUser } from '../src/graphql/queries';
 
 /**
  * INITIAL STATE
@@ -12,8 +8,21 @@ const ADD_BANNED_ITEM = 'ADD_BANNED_ITEM';
 const INITIAL_STATE = [];
 
 /**
+ * ACTION TYPES
+ */
+const GET_BANNED_ITEMS = 'GET_BANNED_ITEMS';
+const ADD_BANNED_ITEM = 'ADD_BANNED_ITEM';
+
+/**
  * ACTION CREATORS
  */
+const getBannedItemsAction = bannedItems => {
+  return {
+    type: GET_BANNED_ITEMS,
+    bannedItems,
+  };
+};
+
 const addBannedItemAction = bannedItem => {
   return {
     type: ADD_BANNED_ITEM,
@@ -24,22 +33,36 @@ const addBannedItemAction = bannedItem => {
 /**
  * THUNK CREATORS
  */
+export const getBannedItems = () => async dispatch => {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    const res = await API.graphql(
+      graphqlOperation(listBannedItemsByUser, {
+        userName: user.username,
+        limit: 50,
+      })
+    );
+    dispatch(getBannedItemsAction(res.data.listBannedItems.items));
+  } catch (err) {
+    console.error(err);
+    console.log('could not get banned items');
+  }
+};
+
 export const addBannedItem = bannedItem => async dispatch => {
   try {
     const user = await Auth.currentAuthenticatedUser();
-    const username = user.username;
-    const input = { name: bannedItem, description: username };
-    console.log('new item', input);
+    const input = { name: bannedItem, userName: user.username };
     const res = await API.graphql(
-      graphqlOperation(createTodo, { input })
+      graphqlOperation(createBannedItem, { input })
     );
-    console.log("res", res.data.createTodo)
-    dispatch(addBannedItemAction(res.data.createTodo));
+    dispatch(addBannedItemAction(res.data.createBannedItem));
   } catch (err) {
     console.error(err);
     console.log('could not add banned item');
   }
 };
+
 /**
  * REDUCER
  */
@@ -47,6 +70,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BANNED_ITEM:
       return [...state, action.bannedItem];
+    case GET_BANNED_ITEMS:
+      return action.bannedItems;
     default:
       return state;
   }

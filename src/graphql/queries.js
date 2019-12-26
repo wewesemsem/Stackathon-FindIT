@@ -1,24 +1,24 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = `query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+export const getBannedItem = `query GetBannedItem($id: ID!) {
+  getBannedItem(id: $id) {
     id
     name
-    description
+    userName
   }
 }
 `;
-export const listTodos = `query ListTodos(
-  $filter: ModelTodoFilterInput
+export const listBannedItemsByUser = `query ListBannedItems(
   $limit: Int
   $nextToken: String
+  $userName: String!
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listBannedItems(filter: {userName: {eq: $userName}}, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
-      description
+      userName
     }
     nextToken
   }
