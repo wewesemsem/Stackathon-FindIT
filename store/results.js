@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addCategories } from './bannedItemsArrays';
 /**
  * ACTION TYPES
  */
@@ -25,6 +26,7 @@ export const clearResultsAction = () => ({ type: CLEAR_RESULTS });
  */
 
 export const getResults = (barCode, selectedItems) => async dispatch => {
+  selectedItems = addCategories(selectedItems);
   try {
     let bannedItemsFound = [];
     const { data } = await axios(

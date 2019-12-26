@@ -57,3 +57,22 @@ export const treeNutsList = [
 ];
 
 export const carcinogensList = ['acetaldehyde', 'benzene', 'betel quid'];
+
+export function addCategories(bannedItems){
+  if (bannedItems.includes('dairy')) {
+    bannedItems = bannedItems.concat(dairyList);
+  }
+  if (bannedItems.includes('meat (excluding seafood)')) {
+    bannedItems = bannedItems.concat(meatList);
+  }
+  if (bannedItems.includes('shellfish')) {
+    bannedItems = bannedItems.concat(shellFishList);
+  }
+  if (bannedItems.includes('tree nuts')) {
+    bannedItems = bannedItems.concat(treeNutsList);
+  }
+  if (bannedItems.includes('known carcinogens')) {
+    bannedItems = bannedItems.concat(carcinogensList);
+  }
+  return bannedItems;
+}
