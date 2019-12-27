@@ -9,83 +9,39 @@ import CustomItem from './customItem';
 class bannedList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      bannedItems: [
-        'tree nuts',
-        'dairy',
-        'meat (excluding seafood)',
-        'shellfish',
-        'gluten',
-        'gelatin',
-        'peanuts',
-        'alcohol',
-        'known carcinogens',
-      ],
-      selectedItems: [],
-      customItems: [],
-    };
-    this.handlePressScan = this.handlePressScan.bind(this);
-    this.handlePressItem = this.handlePressItem.bind(this);
     this.handlePressAdd = this.handlePressAdd.bind(this);
   }
 
   componentDidMount() {
-    //get banned items for current user
     this.props.getBannedItems();
   }
 
   handlePressAdd(item) {
-    // this.setState({
-    //   bannedItems: [...this.state.bannedItems, item],
-    //   selectedItems: [...this.state.selectedItems, item],
-    // });
     this.props.addBannedItem(item);
   }
 
-  handlePressScan() {
-    // this.props.addBannedItems(this.state.selectedItems);
-    this.props.navigation.navigate('BarScan');
-  }
-
-  handlePressItem(selectedItemName) {
-    let selectedItems = [...this.state.selectedItems];
-    //if its already selected, deselect
-    if (selectedItems.includes(selectedItemName)) {
-      const idx = selectedItems.indexOf(selectedItemName);
-      selectedItems.splice(idx, 1);
-      this.setState({ selectedItems });
-    } else {
-      //if not selected, add to selected
-      this.setState({
-        selectedItems: [...this.state.selectedItems, selectedItemName],
-      });
-    }
-  }
-  //render a view of drop down --> on click selected drop down, add to banned items
-  //render a list of banned items
   render() {
-    const { bannedItems, selectedItems } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Select a category to ban:</Text>
+        <Text style={styles.text}>Your banned ingredients:</Text>
         <View style={styles.list}>
-          <ListItem
-            handlePress={this.handlePressItem}
-            bannedItems={this.props.userBannedItems}
-            selectedItems={selectedItems}
-          />
+          <ListItem bannedItems={this.props.userBannedItems} />
         </View>
-        <Text style={styles.text}>Ban a custom ingredient:</Text>
+        <Text style={styles.text}>Ban an ingredient:</Text>
         <CustomItem
-          bannedItems={bannedItems}
-          selectedItems={selectedItems}
           handlePress={this.handlePressAdd}
+          bannedItems={this.props.userBannedItems}
         />
+        <Button
+          color="#3E505B"
+          title="Click here to add categories"
+          onPress={() => this.props.navigation.navigate('Categories')}
+        ></Button>
         <View style={styles.button}>
           <Button
             color="#3E505B"
             title="Scan My Item"
-            onPress={this.handlePressScan}
+            onPress={() => this.props.navigation.navigate('BarScan')}
           />
         </View>
       </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { BannedList, Camera, Results } from './components/';
+import { BannedList, Camera, Results, Categories } from './components/';
 import store from './store';
 import { Provider } from 'react-redux';
 import Amplify from 'aws-amplify';
@@ -15,6 +15,9 @@ const AppNavigator = createStackNavigator(
   {
     Banned: {
       screen: BannedList,
+    },
+    Categories: {
+      screen: Categories,
     },
     BarScan: {
       screen: Camera,
