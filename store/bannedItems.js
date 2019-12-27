@@ -42,7 +42,10 @@ export const getBannedItems = () => async dispatch => {
         limit: 50,
       })
     );
-    dispatch(getBannedItemsAction(res.data.listBannedItems.items));
+    const bannedList = res.data.listBannedItems.items.map(item => {
+      return item.name;
+    });
+    dispatch(getBannedItemsAction(bannedList));
   } catch (err) {
     console.error(err);
     console.log('could not get banned items');
@@ -56,7 +59,7 @@ export const addBannedItem = bannedItem => async dispatch => {
     const res = await API.graphql(
       graphqlOperation(createBannedItem, { input })
     );
-    dispatch(addBannedItemAction(res.data.createBannedItem));
+    dispatch(addBannedItemAction(res.data.createBannedItem.name));
   } catch (err) {
     console.error(err);
     console.log('could not add banned item');

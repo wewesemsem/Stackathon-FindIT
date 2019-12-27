@@ -52,8 +52,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getResults: (barCode, selectedItems) =>
-      dispatch(getResults(barCode, selectedItems)),
+    getResults: (barCode, bannedItems) =>
+      dispatch(getResults(barCode, bannedItems)),
   };
 };
 
