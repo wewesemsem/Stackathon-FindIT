@@ -33,7 +33,7 @@ class bannedList extends React.Component {
           bannedItems={this.props.userBannedItems}
         />
         <Button
-          color="#3E505B"
+          color="#FFF"
           title="Click here to add categories"
           onPress={() => this.props.navigation.navigate('Categories')}
         ></Button>
