@@ -2,7 +2,11 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import styles from './style';
 import ListItem from './listItem';
-import { addBannedItem, getBannedItems } from '../store/bannedItems';
+import {
+  addBannedItem,
+  getBannedItems,
+  removeBannedItem,
+} from '../store/bannedItems';
 import { connect } from 'react-redux';
 import CustomItem from './customItem';
 
@@ -10,6 +14,7 @@ class bannedList extends React.Component {
   constructor(props) {
     super(props);
     this.handlePressAdd = this.handlePressAdd.bind(this);
+    this.handlePressDelete = this.handlePressDelete.bind(this);
   }
 
   componentDidMount() {
@@ -20,12 +25,19 @@ class bannedList extends React.Component {
     this.props.addBannedItem(item);
   }
 
+  handlePressDelete(item) {
+    this.props.deleteBannedItem(item);
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Your banned ingredients:</Text>
         <View style={styles.list}>
-          <ListItem bannedItems={this.props.userBannedItems} />
+          <ListItem
+            bannedItems={this.props.userBannedItems}
+            deleteItem={this.handlePressDelete}
+          />
         </View>
         <Text style={styles.text}>Ban an ingredient:</Text>
         <CustomItem
@@ -53,6 +65,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getBannedItems: () => dispatch(getBannedItems()),
     addBannedItem: bannedItem => dispatch(addBannedItem(bannedItem)),
+    deleteBannedItem: bannedItem => dispatch(removeBannedItem(bannedItem)),
   };
 };
 

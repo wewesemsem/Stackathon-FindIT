@@ -1,5 +1,9 @@
 import { API, graphqlOperation, Auth } from 'aws-amplify';
-import { createBannedItem } from '../src/graphql/mutations';
+import {
+  createBannedItem,
+  updateBannedItem,
+  deleteBannedItem,
+} from '../src/graphql/mutations';
 import { listBannedItemsByUser } from '../src/graphql/queries';
 
 /**
@@ -12,6 +16,7 @@ const INITIAL_STATE = [];
  */
 const GET_BANNED_ITEMS = 'GET_BANNED_ITEMS';
 const ADD_BANNED_ITEM = 'ADD_BANNED_ITEM';
+const REMOVE_BANNED_ITEM = 'REMOVE_BANNED_ITEM';
 
 /**
  * ACTION CREATORS
@@ -30,6 +35,13 @@ const addBannedItemAction = bannedItem => {
   };
 };
 
+const removeBannedItemAction = bannedItem => {
+  return {
+    type: REMOVE_BANNED_ITEM,
+    bannedItem,
+  };
+};
+
 /**
  * THUNK CREATORS
  */
@@ -42,10 +54,10 @@ export const getBannedItems = () => async dispatch => {
         limit: 50,
       })
     );
-    const bannedList = res.data.listBannedItems.items.map(item => {
-      return item.name;
-    });
-    dispatch(getBannedItemsAction(bannedList));
+    // const bannedList = res.data.listBannedItems.items.map(item => {
+    //   return item.name;
+    // });
+    dispatch(getBannedItemsAction(res.data.listBannedItems.items));
   } catch (err) {
     console.error(err);
     console.log('could not get banned items');
@@ -59,10 +71,21 @@ export const addBannedItem = bannedItem => async dispatch => {
     const res = await API.graphql(
       graphqlOperation(createBannedItem, { input })
     );
-    dispatch(addBannedItemAction(res.data.createBannedItem.name));
+    dispatch(addBannedItemAction(res.data.createBannedItem));
   } catch (err) {
     console.error(err);
     console.log('could not add banned item');
+  }
+};
+
+export const removeBannedItem = bannedItem => async dispatch => {
+  try {
+    const input = { id: bannedItem.id };
+    await API.graphql(graphqlOperation(deleteBannedItem, { input }));
+    dispatch(removeBannedItemAction(bannedItem));
+  } catch (err) {
+    console.error(err);
+    console.log('could not delete banned item');
   }
 };
 
@@ -75,6 +98,10 @@ export default function(state = INITIAL_STATE, action) {
       return [...state, action.bannedItem];
     case GET_BANNED_ITEMS:
       return action.bannedItems;
+    case REMOVE_BANNED_ITEM:
+      return state.filter(item => {
+        return item !== action.bannedItem;
+      });
     default:
       return state;
   }

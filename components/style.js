@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'baseline',
   },
   navigate: {
     flex: 0,
@@ -34,6 +35,11 @@ const styles = StyleSheet.create({
     color: '#FFF689',
     // fontWeight: 'bold',
     fontSize: 25,
+  },
+  text2: {
+    color: '#DDA448',
+    // fontWeight: 'bold',
+    fontSize: 20,
   },
   resultText: {
     color: '#fff',

@@ -10,10 +10,16 @@ export default class CustomItem extends React.Component {
   }
   handlePress() {
     const newItem = this.state.customItem.trim().toLowerCase();
+    let found = false;
+    this.props.bannedItems.forEach(item => {
+      if (item.name === newItem) {
+        found = true;
+      }
+    });
     if (newItem === '' || newItem === ' ') {
       alert('This field cannot be empty.');
       this.setState({ customItem: '' });
-    } else if (this.props.bannedItems.includes(newItem)) {
+    } else if (found) {
       alert('This ingredient is already listed.');
       this.setState({ customItem: '' });
     } else {

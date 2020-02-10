@@ -5,8 +5,15 @@ import styles from './style';
 function listItem(props) {
   return props.bannedItems.map(item => {
     return (
-      <View style={styles.listItem} key={item}>
-        <Button color="#DDA448" title={item} />
+      <View style={styles.listItem} key={item.id}>
+        <Text style={styles.text2}> {item.name} </Text>
+        <Button
+          color=""
+          title={'x'}
+          onPress={() => {
+            props.deleteItem(item);
+          }}
+        />
       </View>
     );
   });

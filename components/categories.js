@@ -5,6 +5,7 @@ import { addBannedItem } from '../store/bannedItems';
 import { connect } from 'react-redux';
 
 const bannedItems = [
+  'SELECT AN ITEM',
   'tree nuts',
   'dairy',
   'meat (excluding seafood)',
@@ -25,7 +26,13 @@ class Categories extends Component {
 
   handlePress = () => {
     const newItem = this.state.category;
-    if (this.props.userBannedItems.includes(newItem)) {
+    let found = false;
+    this.props.userBannedItems.forEach(item => {
+      if (item.name === newItem) {
+        found = true;
+      }
+    });
+    if (found) {
       alert('This ingredient is already listed.');
     } else {
       this.props.addBannedItem(newItem);
@@ -43,7 +50,7 @@ class Categories extends Component {
           onValueChange={this.updateCategory}
         >
           {bannedItems.map(item => {
-            return <Picker.Item label={item} value={item} />;
+            return <Picker.Item label={item} value={item} key={item} />;
           })}
         </Picker>
         <View style={styles.button}>
