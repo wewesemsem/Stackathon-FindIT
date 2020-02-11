@@ -59,6 +59,7 @@ export const treeNutsList = [
 export const carcinogensList = ['acetaldehyde', 'benzene', 'betel quid'];
 
 export function addCategories(bannedItems){
+  bannedItems = bannedItems.map((item) => {return item.name})
   if (bannedItems.includes('dairy')) {
     bannedItems = bannedItems.concat(dairyList);
   }

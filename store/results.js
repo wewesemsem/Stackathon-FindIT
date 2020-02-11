@@ -44,7 +44,7 @@ export const getResults = (barCode, selectedItems) => async dispatch => {
       for (let i = 0; i < ingredients.length; i++) {
         for (let j = 0; j < selectedItems.length; j++) {
           const currentIngredient = ingredients[i].text.toLowerCase();
-          const bannedItem = selectedItems[j].name.toLowerCase();
+          const bannedItem = selectedItems[j].toLowerCase();
           if (currentIngredient.includes(bannedItem)) {
             if (!bannedItemsFound.includes(bannedItem))
               bannedItemsFound.push(bannedItem);
