@@ -60,7 +60,7 @@ export const getResults = (barCode, selectedItems) => async dispatch => {
         });
       }
     }
-    if (!bannedItemsFound.length) bannedItemsFound.push('No banned items!');
+    if (!bannedItemsFound.length) bannedItemsFound.push('No banned items! ✅');
     dispatch(getResultsAction(bannedItemsFound));
   } catch (error) {
     console.log('Results not found');

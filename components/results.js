@@ -19,7 +19,7 @@ class Results extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.resultText}>This item contains: </Text>
+        <Text style={styles.resultText}>This item contains:</Text>
         <View style={styles.list}>
           <ResultItem results={this.props.results} />
         </View>
@@ -57,7 +57,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
